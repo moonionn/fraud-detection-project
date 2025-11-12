@@ -39,6 +39,9 @@ coverage.xml
 # 日誌檔案
 *.log
 
+# 資料庫檔案
+*.md
+
 # 資料集與樣本資料夾
 datasets_sample/
 datasets/
