@@ -73,7 +73,7 @@ def add_time_features(df):
     df['Cents'] = df['TransactionAmt'] % 1
 
     min_dy = df['TransactionDT'].min()
-    df['TransactionDT'] = ((df['TransactionDT'] - min_dy) / 86400).astype('int32')
+    df['TransactionDay'] = ((df['TransactionDT'] - min_dy) / 86400).astype('int32')
 
     return df
 
@@ -85,6 +85,6 @@ if __name__ == '__main__':
     print('|___Dataset Info___|')
     print(f'  Shape: {train.shape}')
     print(f'  Fraud count: {train["isFraud"].mean():.2%}')
-    print(f'  Time span (days): {train["TransactionDT"].max()} days')
+    print(f'  Time span (days): {train["TransactionDay"].max()} days')
     print(f'  Memory usage: {train.memory_usage(deep=True).sum() / 1024**2:.1f} MB')
     print('SUCCESS: Got Dataset Info\n')
