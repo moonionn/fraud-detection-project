@@ -45,3 +45,4 @@ coverage.xml
 # 資料集與樣本資料夾
 datasets_sample/
 datasets/
+outputs/

@@ -23,6 +23,7 @@ print(  f'Overall Fraud Rate: {data["isFraud"].mean():.2%} ~ {daily_stats['Fraud
 # Fraud vs Normal
 print('|___2. Fraud vs Normal___|')
 fraud_stats = data.groupby('isFraud')['TransactionAmt'].describe()
+print(  f'Fraud Stats: {fraud_stats}')
 
 # Point features
 print('|___3. Point Features___|')
