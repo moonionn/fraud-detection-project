@@ -10,6 +10,16 @@
 
 目標變數為 `isFraud`，一個二元標籤，`1` 代表詐騙，`0` 代表正常交易。
 
+## 專案設置
+
+1.  **下載資料集**:
+    - 前往 Kaggle 競賽頁面: [IEEE-CIS Fraud Detection](https://www.kaggle.com/competitions/ieee-fraud-detection/data)
+    - 下載所需的 CSV 檔案 (例如 `train_transaction.csv`, `train_identity.csv` 等)。
+
+2.  **建立資料夾**:
+    - 在專案根目錄下建立一個名為 `datasets` 的資料夾。
+    - 將所有從 Kaggle 下載的 `.csv` 檔案放入 `datasets` 資料夾中。
+
 ## 環境需求
 
 - **Python 版本**: 3.8+
@@ -48,7 +58,7 @@ pip install -r requirements.txt
 ### `src/data/datahandler.py`
 - **功能**: 負責所有數據的準備工作。
 - `DataHandler` 類:
-    - `load()`: 載入 `transaction` 和 `identity` 數據並合併。
+    - `load()`: 載入 `transaction` 和 `identity`數據並合併。
     - `add_time_features()`: 新增基於時間的特徵，如 `TransactionDay`。
     - `handle_missing_values()`: 統一填補缺失值。
     - `encode_categorical()`: 將類別特徵轉換為數值編碼。
