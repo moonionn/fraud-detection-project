@@ -59,7 +59,7 @@ class BaselineModel:
         )
         self.train_time = time.time() - start_time
         print(f'  Train time: {self.train_time:.2f} sec')
-        print('SUCCESS: Model training completed.')
+        print('SUCCESS: Model training completed.\n')
 
         return self
 

@@ -9,7 +9,7 @@ import hashlib
 
 class FeatureCacheManager:
 
-    def __init__(self, cache_dir='outputs/features'):
+    def __init__(self, cache_dir='datasets/cache'):
         self.cache_dir = Path(cache_dir)
         self.cache_dir.mkdir(parents=True, exist_ok=True)
 
@@ -30,7 +30,6 @@ class FeatureCacheManager:
 
         with open(cache_file, 'rb') as f:
             data = pickle.load(f)
-        print(f'  Loaded cache features: {cache_file.name}')
 
         return data
 

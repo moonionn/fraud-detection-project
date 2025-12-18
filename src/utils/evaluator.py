@@ -1,5 +1,4 @@
-from fontTools.designspaceLib.split import LOGGER
-from sklearn.metrics import roc_auc_score, f1_score, precision_score, recall_score
+from sklearn.metrics import roc_auc_score, f1_score, precision_score, recall_score, average_precision_score
 
 
 class ModelEvaluator:
@@ -11,6 +10,7 @@ class ModelEvaluator:
 
         metrics = {
             'AUC': roc_auc_score(y_true, y_pred_proba),
+            'AUC_PR': average_precision_score(y_true, y_pred),
             'F1': f1_score(y_true, y_pred),
             'Precision': precision_score(y_true, y_pred),
             'Recall': recall_score(y_true, y_pred),
@@ -21,7 +21,8 @@ class ModelEvaluator:
     @staticmethod
     def print_metrics(metrics: dict):
         print('|__Evaluation Metrics__|')
-        print(f'  AUC:       {metrics["AUC"]:.2%}')
+        print(f'  AUC:       {metrics["AUC"]:.4%}')
+        print(f'  AUC-PR:    {metrics["AUC_PR"]:.4f}')
         print(f'  F1 Score:  {metrics["F1"]:.4f}')
         print(f'  Precision: {metrics["Precision"]:.4f}')
         print(f'  Recall:    {metrics["Recall"]:.4f}')
