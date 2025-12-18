@@ -40,7 +40,6 @@ coverage.xml
 *.log
 
 # 資料庫檔案
-*.md
 *.png
 # 資料集與樣本資料夾
 datasets_sample/
