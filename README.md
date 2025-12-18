@@ -10,17 +10,40 @@
 
 目標變數為 `isFraud`，一個二元標籤，`1` 代表詐騙，`0` 代表正常交易。
 
+## 環境需求
+
+- **Python 版本**: 3.8+
+- **主要依賴套件**:
+    - `pandas`
+    - `numpy`
+    - `scikit-learn`
+    - `lightgbm`
+    - `river`
+
+建議使用 `pip` 安裝所有依賴：
+```bash
+pip install -r requirements.txt
+```
+
 ## 如何運行
 
-執行主實驗腳本，此腳本將會載入數據、訓練模型、模擬線上預測與更新，並評估其表現。
+本專案提供兩種實驗運行腳本：
 
-```bash
-python run_exp.py
-```
+1.  **`run_exp.py`**: 執行基線模型和不同特徵工程策略的比較實驗。
+
+    ```bash
+    python run_exp.py
+    ```
+
+2.  **`run_exp_incre.py`**: 模擬線上增量學習情境，並在偵測到概念漂移時更新模型。
+
+    ```bash
+    python run_exp_incre.py
+    ```
 
 ## 專案模組說明
 
-`run_exp.py` 是主執行腳本，它會依序調用以下核心模組來完成整個實驗流程。
+`run_exp.py` 和 `run_exp_incre.py` 是主執行腳本，它們會依序調用以下核心模組來完成整個實驗流程。
 
 ### `src/data/datahandler.py`
 - **功能**: 負責所有數據的準備工作。
