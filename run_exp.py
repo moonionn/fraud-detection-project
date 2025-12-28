@@ -59,38 +59,37 @@ def run_experiment(
     processed_path = 'datasets/processed/processed_data.csv'
     data = pd.read_csv(processed_path)
     handler = DataHandler(data_dir='datasets', offline_weeks=8)
-    train_data, test_data = handler.split_train_test(data)
 
-    # Step 4: Feature Engineering
+    # Step 4: Feature Engineering (修改點：先計算特徵再切分)
     if windows:
         print(f'[Step 4] Create {exp_name} Features\n')
         engineer = FeatureEngineerWithCache(windows=windows, use_cache=use_cache)
-        train_data = engineer.create_feature(train_data, data_type='train')
-        test_data = engineer.create_feature(test_data, data_type='test')
-        print(f'  Total features: {len(train_data.columns)}\n')
+
+        # 在整個資料集上計算特徵
+        data = engineer.create_feature(data, data_type=f'static_{exp_id}')
+        print(f'  Total features: {len(data.columns)}\n')
 
         # 處理新增特徵產生的 NaN
-        if train_data.isnull().any().any() or test_data.isnull().any().any():
+        if data.isnull().any().any():
             print('  Handling missing values in new features...')
-            train_data = handler.handle_missing_values(train_data)
-            test_data = handler.handle_missing_values(test_data)
+            data = handler.handle_missing_values(data)
         else:
             print('  No missing values in new features.')
     else:
         print('[Step 4] Skip Feature Engineering (Baseline)\n')
 
+    # 切分訓練/測試集（移到特徵工程之後）
+    train_data, test_data = handler.split_train_test(data)
+
     # Step 5: 訓練模型
     print(f'[Step 5] Train {model_type.upper()} Model\n')
-
-    # Baseline 不使用採樣
-    current_sampling = 'none' if exp_id == 'baseline' else sampling_type
-    print(f"  Using sampling: {current_sampling}")
+    print(f"  Using sampling: {sampling_type}")
 
     model, feature_cols = train_model(
         train_data,
         model_type=model_type,
         use_sampling=True,
-        sampling_type=current_sampling,
+        sampling_type=sampling_type,
         **model_params
     )
 
